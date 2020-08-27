@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class QrScannerOverlayShape extends ShapeBorder {
@@ -17,12 +16,12 @@ class QrScannerOverlayShape extends ShapeBorder {
     this.borderLength = 40,
     this.cutOutSize = 250,
   }) : assert(
-  cutOutSize != null
-      ? cutOutSize != null
-      ? borderLength <= cutOutSize / 2 + borderWidth * 2
-      : true
-      : true,
-  "Border can't be larger than ${cutOutSize / 2 + borderWidth * 2}");
+            cutOutSize != null
+                ? cutOutSize != null
+                    ? borderLength <= cutOutSize / 2 + borderWidth * 2
+                    : true
+                : true,
+            "Border can't be larger than ${cutOutSize / 2 + borderWidth * 2}");
 
   @override
   EdgeInsetsGeometry get dimensions => const EdgeInsets.all(10.0);
@@ -102,7 +101,7 @@ class QrScannerOverlayShape extends ShapeBorder {
         rect,
         backgroundPaint,
       )
-    // Draw top right corner
+      // Draw top right corner
       ..drawRRect(
         RRect.fromLTRBAndCorners(
           cutOutRect.right - _borderLength,
@@ -113,7 +112,7 @@ class QrScannerOverlayShape extends ShapeBorder {
         ),
         borderPaint,
       )
-    // Draw top left corner
+      // Draw top left corner
       ..drawRRect(
         RRect.fromLTRBAndCorners(
           cutOutRect.left,
@@ -124,7 +123,7 @@ class QrScannerOverlayShape extends ShapeBorder {
         ),
         borderPaint,
       )
-    // Draw bottom right corner
+      // Draw bottom right corner
       ..drawRRect(
         RRect.fromLTRBAndCorners(
           cutOutRect.right - _borderLength,
@@ -135,7 +134,7 @@ class QrScannerOverlayShape extends ShapeBorder {
         ),
         borderPaint,
       )
-    // Draw bottom left corner
+      // Draw bottom left corner
       ..drawRRect(
         RRect.fromLTRBAndCorners(
           cutOutRect.left,

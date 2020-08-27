@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
 typedef void QRViewCreatedCallback(QRViewController controller);
 
 class QRView extends StatefulWidget {
@@ -21,7 +20,6 @@ class QRView extends StatefulWidget {
     this.qrCodeBackgroundColor = Colors.blue,
     this.qrCodeForegroundColor = Colors.white,
     this.switchButtonColor = Colors.white,
-
   })  : assert(key != null),
         assert(onQRViewCreated != null),
         assert(data != null),
@@ -44,10 +42,8 @@ class _QRViewState extends State<QRView> {
   CarouselSlider slider;
   var flareAnimation = "view";
 
-  getSlider(){
+  getSlider() {
     setState(() {
-
-
       slider = CarouselSlider(
         height: MediaQuery.of(context).size.height,
         viewportFraction: 1.0,
@@ -55,9 +51,9 @@ class _QRViewState extends State<QRView> {
         onPageChanged: (index) {
           setState(() {
             isScanMode = index == 0;
-            if(isScanMode) {
+            if (isScanMode) {
               flareAnimation = "scanToView";
-            }else {
+            } else {
               flareAnimation = "viewToScan";
             }
           });
@@ -101,40 +97,38 @@ class _QRViewState extends State<QRView> {
     return Stack(
       children: [
         _getPlatformQrView(),
-        widget.overlay != null
-            ? getSlider()
-            : Container(),
+        widget.overlay != null ? getSlider() : Container(),
         Align(
           alignment: Alignment.topLeft,
           child: SafeArea(
               child: IconButton(
-                icon: Icon(
-                  Icons.clear,
-                  color: Colors.white70,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )),
+            icon: Icon(
+              Icons.clear,
+              color: Colors.white70,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )),
         ),
         Positioned(
           bottom: 16,
           left: 0,
           right: 0,
           child: InkWell(
-
             onTap: () {
               setState(() {
-
                 isScanMode = !isScanMode;
-                if(isScanMode) {
+                if (isScanMode) {
                   flareAnimation = "scanToView";
-                  slider?.previousPage(duration: Duration(milliseconds: 500),
+                  slider?.previousPage(
+                      duration: Duration(milliseconds: 500),
                       curve: Curves.linear);
-                }else {
+                } else {
                   flareAnimation = "viewToScan";
 
-                  slider?.nextPage(duration: Duration(milliseconds: 500),
+                  slider?.nextPage(
+                      duration: Duration(milliseconds: 500),
                       curve: Curves.linear);
                 }
               });
@@ -146,9 +140,9 @@ class _QRViewState extends State<QRView> {
                 borderRadius: BorderRadius.circular(255),
               ),
               child: ClipRRect(
-
                 borderRadius: BorderRadius.circular(255),
-                child: FlareActor("packages/twitter_qr_scanner/asset/QRButton.flr",
+                child: FlareActor(
+                  "packages/twitter_qr_scanner/asset/QRButton.flr",
                   alignment: Alignment.center,
                   animation: flareAnimation,
                   fit: BoxFit.contain,
@@ -186,7 +180,7 @@ class _QRViewState extends State<QRView> {
     return _platformQrView;
   }
 
-  void _onPlatformViewCreated(int id) async{
+  void _onPlatformViewCreated(int id) async {
     if (widget.onQRViewCreated == null) {
       return;
     }
@@ -232,7 +226,7 @@ class QRViewController {
           {"width": renderBox.size.width, "height": renderBox.size.height});
     }
     _channel.setMethodCallHandler(
-          (MethodCall call) async {
+      (MethodCall call) async {
         switch (call.method) {
           case scanMethodCall:
             if (call.arguments != null) {
